@@ -11,7 +11,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Rotas
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('dashboard');
 });
 
 app.get('/about', (req, res) => {
