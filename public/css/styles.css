@@ -1,0 +1,145 @@
+:root {
+    --color-bg: #f2f6fa;
+    --color-white: #ffffff;
+    --color-text: #333;
+    --color-green: #c7f4d0;
+    --color-yellow: #fff3b0;
+    --color-blue: #d6efff;
+    --color-red: #ffd6d6;
+    --color-border: #ccc;
+    --radius: 8px;
+    --padding: 16px;
+    --font-main: 'Arial', sans-serif;
+  }
+  
+  body {
+    background-color: var(--color-bg);
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
+    color: var(--color-text);
+  }
+  
+  .dashboard {
+    padding: var(--padding);
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--padding);
+  }
+  
+  .download-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-white);
+    cursor: pointer;
+    border-radius: var(--radius);
+  }
+  
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--padding);
+    margin-bottom: var(--padding);
+  }
+  
+  .card {
+    flex: 1 1 200px;
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    padding: var(--padding);
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    min-width: 220px;
+  }
+  
+  .card-content h3 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .card-content p {
+    margin: 4px 0 12px;
+    font-size: 14px;
+  }
+  
+  .card-button {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: var(--radius);
+  }
+  
+  .card-green {
+    border: 2px solid #27ae60;
+  }
+  .card-green .card-button.green {
+    background-color: #c7f4d0;
+    color: #2e7d32;
+  }
+  
+  .card-yellow {
+    border: 2px solid #f1c40f;
+  }
+  .card-yellow .card-button.yellow {
+    background-color: #fff3b0;
+    color: #b68c00;
+  }
+  
+  .card-blue {
+    border: 2px solid #3498db;
+  }
+  .card-blue .card-button.blue {
+    background-color: #d6efff;
+    color: #21618c;
+  }
+  
+  .card-red {
+    border: 2px solid #e74c3c;
+  }
+  .card-red .card-button.red {
+    background-color: #ffd6d6;
+    color: #c0392b;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--padding);
+  }
+  
+  .info-box {
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    padding: var(--padding);
+    border: 1px solid var(--color-border);
+  }
+  
+  .info-title {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  
+  .info-data {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .info-data div h4 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .info-data div p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #555;
+  }
+  

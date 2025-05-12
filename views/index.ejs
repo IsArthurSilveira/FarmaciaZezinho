@@ -1,21 +1,127 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Página Inicial</title>
-</head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Pharma One</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/menu.css"></head>
 <body>
-    <% include partials/header.ejs %>
 
-    <main>
-        <h1>Bem-vindo à nossa aplicação!</h1>
-        <p>Esta é a página inicial.</p>
-        <img src="/images/example.jpg" alt="Exemplo de imagem">
-    </main>
+    <%- include('partials/menu') %>
 
-    <% include partials/footer.ejs %>
-    <script src="/js/script.js"></script>
+  <section class="dashboard">
+    <div class="dashboard-header">
+      <div>
+        <h1>Dashboard</h1>
+        <p>visão geral dos dados do inventário.</p>
+      </div>
+      <button class="download-btn">Download Relatório ▼</button>
+    </div>
+
+
+    <div class="cards-container">
+      <div class="card card-green">
+        <div class="card-content">
+          <h3>BOM</h3>
+          <p>status de inventário</p>
+        </div>
+        <button class="card-button green">Ver relatório detalhado »</button>
+      </div>
+
+      <div class="card card-yellow">
+        <div class="card-content">
+          <h3>R$ 8.558,75</h3>
+          <p>Receita : Jan 2025</p>
+        </div>
+        <button class="card-button yellow">Ver relatório detalhado »</button>
+      </div>
+
+      <div class="card card-blue">
+        <div class="card-content">
+          <h3>298</h3>
+          <p>Medicamentos disponíveis</p>
+        </div>
+        <button class="card-button blue">Visitar inventário »</button>
+      </div>
+
+      <div class="card card-red">
+        <div class="card-content">
+          <h3>05</h3>
+          <p>Medicamentos em falta</p>
+        </div>
+        <button class="card-button red">Ver medicamento »</button>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box">
+        <div class="info-title">
+          <strong>Inventário</strong>
+          <span>Ir para configuração »</span>
+        </div>
+        <div class="info-data">
+          <div>
+            <h4>298</h4>
+            <p>Total de medicamentos</p>
+          </div>
+          <div>
+            <h4>24</h4>
+            <p>Grupos de medicamentos</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">
+          <strong>Relatório rápido</strong>
+          <span>Abril 2025 ▼</span>
+        </div>
+        <div class="info-data">
+          <div>
+            <h4>70,856</h4>
+            <p>Qtd. de Medicamentos Vendidos</p>
+          </div>
+          <div>
+            <h4>5,288</h4>
+            <p>Faturas geradas</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">
+          <strong>Minha Farmácia</strong>
+          <span>Gerenciamento de usuários »</span>
+        </div>
+        <div class="info-data">
+          <div>
+            <h4>04</h4>
+            <p>Total de fornecedores</p>
+          </div>
+          <div>
+            <h4>05</h4>
+            <p>Número total de usuários</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">
+          <strong>Clientes</strong>
+          <span>Ir para a página do cliente »</span>
+        </div>
+        <div class="info-data">
+          <div>
+            <h4>845</h4>
+            <p>Total de Clientes</p>
+          </div>
+          <div>
+            <h4><strong>Rivotril</strong></h4>
+            <p>Item comprado com frequência</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </body>
 </html>

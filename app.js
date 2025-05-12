@@ -1,26 +1,24 @@
 const express = require('express');
+const app = express();
 const path = require('path');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+// Configura a pasta 'public' como estática
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Configuração do EJS como motor de template
+// Configura o EJS como motor de visualização
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middleware para servir arquivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
-
 // Rotas
 app.get('/', (req, res) => {
-    res.render('index');
+  res.render('index');
 });
 
 app.get('/about', (req, res) => {
     res.render('about');
 });
 
-// Iniciar o servidor
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+// Inicia o servidor
+app.listen(3000, () => {
+  console.log('Servidor rodando em http://localhost:3000');
 });

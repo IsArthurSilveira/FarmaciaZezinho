@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Lateral</title>
+    <link rel="stylesheet" href="/css/menu.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-area">
+            <img src="/images/Logo.svg" alt="Logo Pharma One">
+            <span>Pharma One</span>
+        </div>
+
+        <div class="user-info">
+            <img src="/images/UsuarioIcon.svg" alt="Foto de Leandro">
+            <div class="user-details">
+                <span>Leandro</span>
+                <span class="admin">Admin</span>
+            </div>
+            <div class="menu-dots">...</div>
+        </div>
+
+        <div class="separator"></div>
+
+        <ul class="menu-list">
+            <li class="active">
+                <a href="#">
+                    <img src="/images/DashboardIcon.svg" alt="Dashboard">
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">
+                        <img src="/images/IventarioIcon.svg" alt="Inventário">
+                        <span>Inventário</span>
+                        <span class="arrow">&#9660;</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Sub-item 1</a></li>
+                        <li><a href="#">Sub-item 2</a></li>
+                        <li><a href="#">Sub-item 3</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">
+                        <img src="/images/RelatorioIcon.svg" alt="Relatórios">
+                        <span>Relatórios</span>
+                        <span class="arrow">&#9660;</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Relatório A</a></li>
+                        <li><a href="#">Relatório B</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/images/ConfiIcon.svg" alt="Configuração">
+                    <span>Configuração</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="menu-list">
+            <li>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">
+                        <img src="/images/ContatosIcon.svg" alt="Gestão de Contatos">
+                        <span>Gestão de Contatos</span>
+                        <span class="arrow">&#9660;</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Novo Contato</a></li>
+                        <li><a href="#">Listar Contatos</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/images/NotIcon.svg" alt="Notificações">
+                    <span>Notificações</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/images/SacIcon.svg" alt="SAC">
+                    <span>SAC</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="menu-list bottom-menu">
+            <li>
+                <a href="#">
+                    <img src="/images/ConfigIcon.svg" alt="Configurações do Aplicativo">
+                    <span>Configurações do Aplicativo</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/images/CovidIcon.svg" alt="Covid -19">
+                    <span>Covid -19</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="/images/AjudaIcon.svg" alt="Ajuda Técnica">
+                    <span>Ajuda Técnica</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', (event) => {
+                event.preventDefault();
+                const dropdownMenu = toggle.nextElementSibling;
+                dropdownMenu.classList.toggle('show');
+            });
+        });
+
+        // Fechar dropdowns ao clicar fora
+        document.addEventListener('click', (event) => {
+            const dropdowns = document.querySelectorAll('.dropdown-menu.show');
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.parentNode.contains(event.target)) {
+                    dropdown.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+:root {
+    --primary-color: #004175; /* Cor de fundo principal */
+    --secondary-color: #01579b; /* Cor secundária / hover principal */
+    --tertiary-color: #0277bd; /* Cor de hover do dropdown */
+    --text-color: #fff; /* Cor do texto principal */
+    --text-secondary-color: #a7c0cd; /* Cor do texto secundário */
+    --divider-color: #01579b; /* Cor da linha divisória */
+    --sidebar-width: 256px;
+    --sidebar-height: 720px;
+    --spacing-small: 8px;
+    --spacing-medium: 12px;
+    --spacing-large: 16px;
+    --icon-size: 24px;
+    --font-size-primary: 1em;
+    --font-size-secondary: 0.8em;
+    --logo-icon-size: 30px;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    height: var(--sidebar-height);
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-large);
+}
+
+.logo-area img {
+    width: var(--logo-icon-size);
+    height: var(--logo-icon-size);
+    margin-right: var(--spacing-small);
+}
+
+.logo-area span {
+    font-size: 1.2em; /* Mantive fixo por ser específico */
+    font-weight: bold;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-large);
+}
+
+.user-info img {
+    width: 40px; /* Mantive fixo por ser específico */
+    height: 40px; /* Mantive fixo por ser específico */
+    border-radius: 4px;
+    margin-right: var(--spacing-small);
+}
+
+.user-details span {
+    display: block;
+}
+
+.user-details .admin {
+    font-size: var(--font-size-secondary);
+    color: var(--text-secondary-color);
+}
+
+.menu-dots {
+    margin-left: auto;
+    font-size: 1.5em; /* Mantive fixo por ser específico */
+    cursor: pointer;
+}
+
+.separator {
+    border-top: 2px solid white;
+    margin: var(--spacing-small) var(--spacing-large);
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list li a, .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-medium) var(--spacing-large);
+    text-decoration: none;
+    color: var(--text-color);
+    transition: background-color 0.3s ease;
+}
+
+.menu-list li a img, .dropdown-toggle img {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin-right: var(--spacing-medium);
+}
+
+.menu-list li a:hover, .dropdown-toggle:hover {
+    background-color: var(--secondary-color);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: var(--secondary-color);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-menu li a {
+    padding: var(--spacing-medium) calc(var(--spacing-large) * 2); /* Ajustando padding lateral */
+    display: block;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu li a:hover {
+    background-color: var(--tertiary-color);
+}
+
+.dropdown-toggle .arrow {
+    margin-left: auto;
+}
+
+.bottom-menu {
+    margin-top: 20px; /* Mantive fixo por ser específico */
+}
