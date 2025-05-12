@@ -1,31 +1,13 @@
-:root {
-    --primary-color: #004175; /* Cor de fundo principal */
-    --secondary-color: #01579b; /* Cor secundária / hover principal */
-    --tertiary-color: #0277bd; /* Cor de hover do dropdown */
-    --text-color: #fff; /* Cor do texto principal */
-    --text-secondary-color: #a7c0cd; /* Cor do texto secundário */
-    --divider-color: #01579b; /* Cor da linha divisória */
-    --sidebar-width: 256px;
-    --sidebar-height: 720px;
-    --spacing-small: 8px;
-    --spacing-medium: 12px;
-    --spacing-large: 16px;
-    --icon-size: 24px;
-    --font-size-primary: 1em;
-    --font-size-secondary: 0.8em;
-    --logo-icon-size: 30px;
-}
-
 body {
     margin: 0;
     font-family: sans-serif;
 }
 
 .sidebar {
-    width: var(--sidebar-width);
-    height: var(--sidebar-height);
-    background-color: var(--primary-color);
-    color: var(--text-color);
+    width: 256px;
+    height: 720px;
+    background-color: #004175;
+    color: #fff;
     position: fixed;
     top: 0;
     left: 0;
@@ -36,31 +18,31 @@ body {
 .logo-area {
     display: flex;
     align-items: center;
-    padding: var(--spacing-large);
+    padding: 16px;
 }
 
 .logo-area img {
-    width: var(--logo-icon-size);
-    height: var(--logo-icon-size);
-    margin-right: var(--spacing-small);
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
 }
 
 .logo-area span {
-    font-size: 1.2em; /* Mantive fixo por ser específico */
+    font-size: 1.2em;
     font-weight: bold;
 }
 
 .user-info {
     display: flex;
     align-items: center;
-    padding: var(--spacing-large);
+    padding: 16px;
 }
 
 .user-info img {
-    width: 40px; /* Mantive fixo por ser específico */
-    height: 40px; /* Mantive fixo por ser específico */
+    width: 40px;
+    height: 40px;
     border-radius: 4px;
-    margin-right: var(--spacing-small);
+    margin-right: 8px;
 }
 
 .user-details span {
@@ -68,19 +50,19 @@ body {
 }
 
 .user-details .admin {
-    font-size: var(--font-size-secondary);
-    color: var(--text-secondary-color);
+    font-size: 0.8em;
+    color: #a7c0cd;
 }
 
 .menu-dots {
     margin-left: auto;
-    font-size: 1.5em; /* Mantive fixo por ser específico */
+    font-size: 1.5em;
     cursor: pointer;
 }
 
 .separator {
     border-top: 2px solid white;
-    margin: var(--spacing-small) var(--spacing-large);
+    margin: 8px 16px;
 }
 
 .menu-list {
@@ -89,23 +71,26 @@ body {
     margin: 0;
 }
 
-.menu-list li a, .dropdown-toggle {
+.menu-list li a,
+.dropdown-toggle {
     display: flex;
     align-items: center;
-    padding: var(--spacing-medium) var(--spacing-large);
+    padding: 12px 16px;
     text-decoration: none;
-    color: var(--text-color);
+    color: #fff;
     transition: background-color 0.3s ease;
 }
 
-.menu-list li a img, .dropdown-toggle img {
-    width: var(--icon-size);
-    height: var(--icon-size);
-    margin-right: var(--spacing-medium);
+.menu-list li a img,
+.dropdown-toggle img {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
 }
 
-.menu-list li a:hover, .dropdown-toggle:hover {
-    background-color: var(--secondary-color);
+.menu-list li a:hover,
+.dropdown-toggle:hover {
+    background-color: #01579b;
 }
 
 .dropdown {
@@ -116,7 +101,7 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: var(--secondary-color);
+    background-color: #01579b;
     position: absolute;
     left: 0;
     width: 100%;
@@ -129,15 +114,15 @@ body {
 }
 
 .dropdown-menu li a {
-    padding: var(--spacing-medium) calc(var(--spacing-large) * 2); /* Ajustando padding lateral */
+    padding: 12px 32px;
     display: block;
     text-decoration: none;
-    color: var(--text-color);
+    color: #fff;
     transition: background-color 0.3s ease;
 }
 
 .dropdown-menu li a:hover {
-    background-color: var(--tertiary-color);
+    background-color: #0277bd;
 }
 
 .dropdown-toggle .arrow {
@@ -145,5 +130,5 @@ body {
 }
 
 .bottom-menu {
-    margin-top: 20px; /* Mantive fixo por ser específico */
+    margin-top: 20px;
 }
