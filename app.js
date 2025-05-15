@@ -11,11 +11,31 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Rotas
 app.get('/', (req, res) => {
-  res.render('dashboard');
+  res.render('LoginCadastro');
 });
 
-app.get('/about', (req, res) => {
-    res.render('about');
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard');
+});
+
+app.get('/estoque', (req, res) => {
+  res.render('estoque');
+});
+
+app.get('/clientes', (req, res) => {
+  res.render('clientes');
+});
+
+app.get('/relatorio', (req, res) => {
+  res.render('relatorio');
+});
+
+app.get('/vendas', (req, res) => {
+  res.render('vendas');
+});
+
+app.get('/configuracoes', (req, res) => {
+  res.render('configuracoes');
 });
 
 // Inicia o servidor

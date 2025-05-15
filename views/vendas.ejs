@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Farmácia - Relatórios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            #sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+            #sidebar.open {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <%- include('partials/menu.ejs') %>
+
+            <!-- Conteúdo Principal -->
+            <div class="flex-1 overflow-x-hidden overflow-y-auto">
+                <!-- Barra superior -->
+                <header class="bg-white shadow-sm z-10">
+                    <div class="flex items-center justify-between p-4">
+                        <div class="flex items-center">
+                            <button id="openSidebar" class="md:hidden mr-4 text-gray-600">
+                                <i class="fas fa-bars text-xl"></i>
+                            </button>
+                            <h1 class="text-xl font-semibold text-gray-800">Relatórios</h1>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="relative">
+                                <input type="text" placeholder="Buscar..."
+                                    class="py-2 pl-10 pr-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-64">
+                                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            </div>
+
+                            <div class="relative">
+                                <button class="relative p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                                    <i class="fas fa-bell text-gray-600"></i>
+                                    <span
+                                        class="absolute top-0 right-0 h-4 w-4 bg-red-500 rounded-full text-xs flex items-center justify-center text-white">3</span>
+                                </button>
+                            </div>
+
+                            <div class="flex items-center">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS11c2VyIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCIvPjwvc3ZnPg=="
+                                    alt="User" class="h-8 w-8 rounded-full bg-gray-200 p-1">
+                                <span class="ml-2 text-gray-700 font-medium">Dr. Silva</span>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+
+                <main class="flex-1 overflow-y-auto p-4">
+                    <div class="container mx-auto">
+                        <!-- Resumo de vendas -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                            <div class="bg-white rounded-lg shadow-md p-6">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-gray-500 text-sm">Vendas Hoje</p>
+                                        <h3 class="text-2xl font-bold text-gray-800">R$ 3.487,50</h3>
+                                        <p class="text-green-500 text-sm flex items-center mt-1">
+                                            <i class="fas fa-arrow-up mr-1"></i>
+                                            12,3% desde ontem
+                                        </p>
+                                    </div>
+                                    <div class="bg-blue-100 p-3 rounded-lg">
+                                        <i class="fas fa-shopping-cart text-blue-600 text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-lg shadow-md p-6">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-gray-500 text-sm">Transações</p>
+                                        <h3 class="text-2xl font-bold text-gray-800">42</h3>
+                                        <p class="text-green-500 text-sm flex items-center mt-1">
+                                            <i class="fas fa-arrow-up mr-1"></i>
+                                            8,5% desde ontem
+                                        </p>
+                                    </div>
+                                    <div class="bg-green-100 p-3 rounded-lg">
+                                        <i class="fas fa-receipt text-green-600 text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-lg shadow-md p-6">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-gray-500 text-sm">Ticket Médio</p>
+                                        <h3 class="text-2xl font-bold text-gray-800">R$ 83,04</h3>
+                                        <p class="text-red-500 text-sm flex items-center mt-1">
+                                            <i class="fas fa-arrow-down mr-1"></i>
+                                            3,2% desde ontem
+                                        </p>
+                                    </div>
+                                    <div class="bg-yellow-100 p-3 rounded-lg">
+                                        <i class="fas fa-tags text-yellow-600 text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-lg shadow-md p-6">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <p class="text-gray-500 text-sm">Itens Vendidos</p>
+                                        <h3 class="text-2xl font-bold text-gray-800">156</h3>
+                                        <p class="text-green-500 text-sm flex items-center mt-1">
+                                            <i class="fas fa-arrow-up mr-1"></i>
+                                            5,8% desde ontem
+                                        </p>
+                                    </div>
+                                    <div class="bg-purple-100 p-3 rounded-lg">
+                                        <i class="fas fa-box-open text-purple-600 text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botão Nova Venda -->
+                        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                            <div class="flex flex-col items-center justify-center py-6">
+                                <div class="bg-blue-100 p-6 rounded-full mb-4">
+                                    <i class="fas fa-plus-circle text-blue-600 text-4xl"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Registrar Nova Venda</h3>
+                                <p class="text-gray-500 text-center mb-6">Clique no botão abaixo para iniciar uma nova
+                                    venda</p>
+                                <button id="openNewSaleBtn"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-105">
+                                    <i class="fas fa-plus-circle mr-2"></i>
+                                    Nova Venda
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Últimas Vendas -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="text-lg font-semibold text-gray-800">Últimas Vendas</h3>
+                                <button class="text-blue-600 hover:text-blue-800 flex items-center">
+                                    Ver todas
+                                    <i class="fas fa-chevron-right ml-1"></i>
+                                </button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Código</th>
+                                            <th
+                                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Cliente</th>
+                                            <th
+                                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Data/Hora</th>
+                                            <th
+                                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Pagamento</th>
+                                            <th
+                                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Total</th>
+                                            <th
+                                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Status</th>
+                                            <th
+                                                class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#V8752</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div
+                                                        class="h-8 w-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center">
+                                                        <i class="fas fa-user"></i>
+                                                    </div>
+                                                    <div class="ml-3">
+                                                        <p class="text-sm font-medium text-gray-900">Maria Silva</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15/04/2023
+                                                14:32</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Cartão de
+                                                Crédito</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">R$
+                                                124,50</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span
+                                                    class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Concluída</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="text-gray-600 hover:text-gray-900 mr-3">
+                                                    <i class="fas fa-print"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#V8751</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div
+                                                        class="h-8 w-8 rounded-full bg-green-100 text-green-700 flex items-center justify-center">
+                                                        <i class="fas fa-user"></i>
+                                                    </div>
+                                                    <div class="ml-3">
+                                                        <p class="text-sm font-medium text-gray-900">João Santos</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15/04/2023
+                                                13:45</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Dinheiro</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">R$
+                                                35,90</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span
+                                                    class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Concluída</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="text-gray-600 hover:text-gray-900 mr-3">
+                                                    <i class="fas fa-print"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#V8750</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div
+                                                        class="h-8 w-8 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center">
+                                                        <i class="fas fa-user"></i>
+                                                    </div>
+                                                    <div class="ml-3">
+                                                        <p class="text-sm font-medium text-gray-900">Ana Oliveira</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15/04/2023
+                                                11:20</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">PIX</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">R$
+                                                187,65</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span
+                                                    class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Concluída</span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="text-gray-600 hover:text-gray-900 mr-3">
+                                                    <i class="fas fa-print"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+    </div>
+
+    <!-- Modal de Nova Venda -->
+    <div id="newSaleModal"
+        class="modal fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-screen overflow-y-auto p-6 mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Nova Venda</h2>
+                <button id="closeNewSaleBtn" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Formulário de Venda -->
+                <div class="md:col-span-2">
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="cliente">
+                            Cliente
+                        </label>
+                        <div class="relative">
+                            <select id="cliente"
+                                class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option value="">Selecione um cliente</option>
+                                <option value="1">Maria Silva</option>
+                                <option value="2">João Santos</option>
+                                <option value="3">Ana Oliveira</option>
+                                <option value="4">Carlos Pereira</option>
+                                <option value="5">Novo cliente</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="produto">
+                            Produto
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="produto" placeholder="Buscar produto..."
+                                class="block w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                        </div>
+
+                        <!-- Resultados da busca de produtos -->
+                        <div id="produtoResultados"
+                            class="mt-2 bg-white border border-gray-200 rounded-md shadow-sm max-h-48 overflow-y-auto">
+                            <ul class="divide-y divide-gray-200">
+                                <li class="px-4 py-3 hover:bg-gray-50 cursor-pointer flex justify-between items-center produto-item"
+                                    data-nome="Dipirona 500mg" data-preco="8.50">
+                                    <div>
+                                        <p class="font-medium text-gray-800">Dipirona 500mg</p>
+                                        <p class="text-sm text-gray-500">Comprimido - Estoque: 120</p>
+                                    </div>
+                                    <span class="text-blue-600 font-medium">R$ 8,50</span>
+                                </li>
+                                <li class="px-4 py-3 hover:bg-gray-50 cursor-pointer flex justify-between items-center produto-item"
+                                    data-nome="Vitamina C 1g" data-preco="15.90">
+                                    <div>
+                                        <p class="font-medium text-gray-800">Vitamina C 1g</p>
+                                        <p class="text-sm text-gray-500">Comprimido - Estoque: 85</p>
+                                    </div>
+                                    <span class="text-blue-600 font-medium">R$ 15,90</span>
+                                </li>
+                                <li class="px-4 py-3 hover:bg-gray-50 cursor-pointer flex justify-between items-center produto-item"
+                                    data-nome="Omeprazol 20mg" data-preco="12.75">
+                                    <div>
+                                        <p class="font-medium text-gray-800">Omeprazol 20mg</p>
+                                        <p class="text-sm text-gray-500">Cápsula - Estoque: 64</p>
+                                    </div>
+                                    <span class="text-blue-600 font-medium">R$ 12,75</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-2" for="quantidade">
+                                Quantidade
+                            </label>
+                            <input type="number" id="quantidade" min="1" value="1"
+                                class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-2" for="preco">
+                                Preço Unit.
+                            </label>
+                            <input type="text" id="preco" value="R$ 0,00" readonly
+                                class="block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end mb-6">
+                        <button type="button" id="addItemBtn"
+                            class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md flex items-center">
+                            <i class="fas fa-plus mr-2"></i>
+                            Adicionar Item
+                        </button>
+                    </div>
+
+                    <!-- Itens da Venda -->
+                    <div class="border border-gray-200 rounded-md p-4 mb-6">
+                        <h4 class="font-medium text-gray-700 mb-3">Itens da Venda</h4>
+                        <div id="sale-items" class="space-y-3 max-h-48 overflow-y-auto">
+                            <!-- Os itens serão adicionados aqui dinamicamente -->
+                        </div>
+
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-600">Subtotal:</span>
+                                <span id="subtotal" class="font-medium">R$ 0,00</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-600">Desconto:</span>
+                                <div class="flex items-center">
+                                    <input type="text" id="discount"
+                                        class="w-20 px-2 py-1 border border-gray-300 rounded-md mr-2 text-right"
+                                        placeholder="0,00">
+                                    <span>R$</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center font-bold text-lg">
+                                <span>Total:</span>
+                                <span id="total">R$ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumo e Finalização -->
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="font-medium text-gray-800 mb-4">Resumo da Venda</h4>
+
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Código:</span>
+                            <span class="font-medium">#V8753</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Data:</span>
+                            <span class="font-medium" id="current-date"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Hora:</span>
+                            <span class="font-medium" id="current-time"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Vendedor:</span>
+                            <span class="font-medium">Usuário</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="payment-method">
+                            Forma de Pagamento
+                        </label>
+                        <div class="relative">
+                            <select id="payment-method"
+                                class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option value="">Selecione</option>
+                                <option value="dinheiro">Dinheiro</option>
+                                <option value="cartao_credito">Cartão de Crédito</option>
+                                <option value="cartao_debito">Cartão de Débito</option>
+                                <option value="pix">PIX</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="payment-details" class="mb-6 hidden">
+                        <!-- Campos específicos para cada forma de pagamento -->
+                        <div id="dinheiro-fields" class="hidden">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-medium mb-2" for="valor-recebido">
+                                    Valor Recebido (R$)
+                                </label>
+                                <input type="text" id="valor-recebido"
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 text-sm font-medium mb-2" for="troco">
+                                    Troco (R$)
+                                </label>
+                                <input type="text" id="troco" readonly
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50">
+                            </div>
+                        </div>
+
+                        <div id="cartao-fields" class="hidden">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-medium mb-2" for="parcelas">
+                                    Parcelas
+                                </label>
+                                <select id="parcelas"
+                                    class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="1">1x sem juros</option>
+                                    <option value="2">2x sem juros</option>
+                                    <option value="3">3x sem juros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="pix-fields" class="hidden">
+                            <div
+                                class="flex justify-center items-center p-4 bg-white rounded-lg border border-gray-200">
+                                <div class="text-center">
+                                    <div class="mb-2">
+                                        <i class="fas fa-qrcode text-6xl text-gray-700"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-2">QR Code PIX gerado</p>
+                                    <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                        <i class="fas fa-print mr-1"></i> Imprimir QR Code
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <button id="finalizeSaleBtn"
+                            class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-md flex items-center justify-center">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            Finalizar Venda
+                        </button>
+
+                        <button id="cancelSaleBtn"
+                            class="w-full bg-white hover:bg-gray-100 text-red-600 border border-red-600 py-3 px-4 rounded-md flex items-center justify-center">
+                            <i class="fas fa-times-circle mr-2"></i>
+                            Cancelar Venda
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Elementos do DOM
+            const sidebar = document.getElementById('sidebar');
+            const openSidebarBtn = document.getElementById('openSidebar');
+            const closeSidebarBtn = document.getElementById('closeSidebar');
+            const newSaleModal = document.getElementById('newSaleModal');
+            const openNewSaleBtn = document.getElementById('openNewSaleBtn');
+            const closeNewSaleBtn = document.getElementById('closeNewSaleBtn');
+            const cancelSaleBtn = document.getElementById('cancelSaleBtn');
+            const produtoInput = document.getElementById('produto');
+            const precoInput = document.getElementById('preco');
+            const produtoResultados = document.getElementById('produtoResultados');
+            const addItemBtn = document.getElementById('addItemBtn');
+            const saleItemsContainer = document.getElementById('sale-items');
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('total');
+            const discountInput = document.getElementById('discount');
+            const paymentMethod = document.getElementById('payment-method');
+            const paymentDetails = document.getElementById('payment-details');
+            const dinheiroFields = document.getElementById('dinheiro-fields');
+            const cartaoFields = document.getElementById('cartao-fields');
+            const pixFields = document.getElementById('pix-fields');
+            const valorRecebido = document.getElementById('valor-recebido');
+            const trocoField = document.getElementById('troco');
+            const finalizeSaleBtn = document.getElementById('finalizeSaleBtn');
+
+            let subtotal = 0;
+            let selectedProduct = null;
+
+            // Controle da sidebar em dispositivos móveis
+            openSidebarBtn.addEventListener('click', function () {
+                sidebar.classList.add('open');
+            });
+
+            closeSidebarBtn.addEventListener('click', function () {
+                sidebar.classList.remove('open');
+            });
+
+            // Abrir modal
+            openNewSaleBtn.addEventListener('click', function () {
+                newSaleModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Impede rolagem do body
+
+                // Atualizar data e hora atual
+                const now = new Date();
+                document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR');
+                document.getElementById('current-time').textContent = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            });
+
+            // Fechar modal
+            function closeModal() {
+                newSaleModal.classList.add('hidden');
+                document.body.style.overflow = ''; // Restaura rolagem do body
+            }
+
+            closeNewSaleBtn.addEventListener('click', closeModal);
+            cancelSaleBtn.addEventListener('click', closeModal);
+
+            // Fechar modal ao clicar fora
+            newSaleModal.addEventListener('click', function (e) {
+                if (e.target === newSaleModal) {
+                    closeModal();
+                }
+            });
+
+            // Selecionar produto da lista
+            const produtoItems = document.querySelectorAll('.produto-item');
+            produtoItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const nome = this.getAttribute('data-nome');
+                    const preco = this.getAttribute('data-preco');
+
+                    produtoInput.value = nome;
+                    precoInput.value = `R$ ${parseFloat(preco).toFixed(2).replace('.', ',')}`;
+                    selectedProduct = {
+                        nome: nome,
+                        preco: parseFloat(preco)
+                    };
+                });
+            });
+
+            // Adicionar item à venda
+            addItemBtn.addEventListener('click', function () {
+                if (!selectedProduct) {
+                    alert('Por favor, selecione um produto.');
+                    return;
+                }
+
+                const quantidade = parseInt(document.getElementById('quantidade').value);
+
+                if (isNaN(quantidade) || quantidade <= 0) {
+                    alert('Por favor, informe uma quantidade válida.');
+                    return;
+                }
+
+                const total = quantidade * selectedProduct.preco;
+                subtotal += total;
+
+                // Criar elemento do item
+                const itemElement = document.createElement('div');
+                itemElement.className = 'flex justify-between items-center bg-gray-50 p-3 rounded-lg';
+                itemElement.innerHTML = `
+                <div>
+                    <p class="font-medium text-gray-800">${selectedProduct.nome}</p>
+                    <p class="text-sm text-gray-500">${quantidade}x R$ ${selectedProduct.preco.toFixed(2).replace('.', ',')}</p>
+                </div>
+                <div class="flex items-center">
+                    <span class="font-medium mr-4">R$ ${total.toFixed(2).replace('.', ',')}</span>
+                    <button class="text-red-500 hover:text-red-700 remove-item">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            `;
+
+                saleItemsContainer.appendChild(itemElement);
+
+                // Atualizar subtotal e total
+                subtotalElement.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+                totalElement.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+
+                // Limpar campos
+                produtoInput.value = '';
+                document.getElementById('quantidade').value = '1';
+                precoInput.value = 'R$ 0,00';
+                selectedProduct = null;
+
+                // Adicionar evento para remover item
+                const removeBtn = itemElement.querySelector('.remove-item');
+                removeBtn.addEventListener('click', function () {
+                    subtotal -= total;
+                    subtotalElement.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+
+                    // Recalcular total com desconto
+                    const discountText = discountInput.value.replace(',', '.');
+                    const discount = parseFloat(discountText) || 0;
+                    const finalTotal = Math.max(0, subtotal - discount);
+                    totalElement.textContent = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+
+                    saleItemsContainer.removeChild(itemElement);
+                });
+            });
+
+            // Aplicar desconto
+            discountInput.addEventListener('input', function () {
+                const discountText = this.value.replace(',', '.');
+                const discount = parseFloat(discountText) || 0;
+
+                const finalTotal = Math.max(0, subtotal - discount);
+                totalElement.textContent = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+            });
+
+            // Mostrar campos específicos de pagamento
+            paymentMethod.addEventListener('change', function () {
+                paymentDetails.classList.remove('hidden');
+
+                // Esconder todos os campos específicos
+                dinheiroFields.classList.add('hidden');
+                cartaoFields.classList.add('hidden');
+                pixFields.classList.add('hidden');
+
+                // Mostrar campos específicos da forma de pagamento selecionada
+                if (this.value === 'dinheiro') {
+                    dinheiroFields.classList.remove('hidden');
+                } else if (this.value === 'cartao_credito' || this.value === 'cartao_debito') {
+                    cartaoFields.classList.remove('hidden');
+                } else if (this.value === 'pix') {
+                    pixFields.classList.remove('hidden');
+                }
+            });
+
+            // Calcular troco
+            valorRecebido.addEventListener('input', function () {
+                const valorText = this.value.replace(',', '.');
+                const valor = parseFloat(valorText) || 0;
+
+                const totalText = totalElement.textContent.replace('R$ ', '').replace(',', '.');
+                const totalVenda = parseFloat(totalText) || 0;
+
+                const troco = Math.max(0, valor - totalVenda);
+                trocoField.value = `R$ ${troco.toFixed(2).replace('.', ',')}`;
+            });
+
+            // Finalizar venda
+            finalizeSaleBtn.addEventListener('click', function () {
+                if (saleItemsContainer.children.length === 0) {
+                    alert('Adicione pelo menos um item à venda.');
+                    return;
+                }
+
+                if (!paymentMethod.value) {
+                    alert('Selecione uma forma de pagamento.');
+                    return;
+                }
+
+                // Aqui você adicionaria a lógica para salvar a venda
+                alert('Venda finalizada com sucesso!');
+                closeModal();
+
+                // Limpar formulário
+                saleItemsContainer.innerHTML = '';
+                subtotal = 0;
+                subtotalElement.textContent = 'R$ 0,00';
+                totalElement.textContent = 'R$ 0,00';
+                discountInput.value = '';
+                paymentMethod.value = '';
+                paymentDetails.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+
+</html>

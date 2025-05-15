@@ -1,57 +1,49 @@
-# EJS App
+# Farmácia Dash
 
-Este projeto é uma aplicação web simples utilizando EJS como motor de template. A estrutura do projeto é organizada em pastas para facilitar a manutenção e a escalabilidade.
-
-## Estrutura do Projeto
-
-```
-ejs-app
-├── public
-│   ├── css
-│   │   └── style.css        # Estilos CSS para a aplicação
-│   ├── images
-│   │   └── example.jpg      # Imagem de exemplo utilizada nas views
-│   └── js
-│       └── script.js        # Código JavaScript para a aplicação
-├── views
-│   ├── partials
-│   │   ├── header.ejs       # Partial para o cabeçalho da página
-│   │   └── footer.ejs       # Partial para o rodapé da página
-│   ├── index.ejs            # View principal da aplicação
-│   └── about.ejs            # View secundária da aplicação
-├── app.js                    # Ponto de entrada da aplicação
-├── package.json              # Configuração do npm
-└── README.md                 # Documentação do projeto
-```
+Farmácia Dash é uma aplicação web desenvolvida para facilitar a gestão farmacêutica, oferecendo ferramentas para controle de estoque, vendas, relatórios e muito mais.
 
 ## Como Usar
 
 1. Clone o repositório:
-   ```
+   ```bash
    git clone <URL_DO_REPOSITORIO>
    ```
 
 2. Navegue até o diretório do projeto:
-   ```
-   cd ejs-app
+   ```bash
+   cd FarmaciaZezinho
    ```
 
 3. Instale as dependências:
-   ```
+   ```bash
    npm install
    ```
 
 4. Inicie o servidor:
-   ```
+   ```bash
    node app.js
    ```
 
 5. Acesse a aplicação no navegador em `http://localhost:3000`.
 
-## Contribuição
+## Interface
 
-Sinta-se à vontade para contribuir com melhorias ou correções. Crie um fork do repositório, faça suas alterações e envie um pull request.
+Confira abaixo algumas imagens da interface da aplicação:
 
-## Licença
+- [Página de Login](/images/Login.png)  
+- [Página de Cadastro](/images/Cadastro.png)  
+- [Dashboard](/images/DashBoard.png)  
+- [Controle de Estoque](/images/Estoque.png)
 
-Este projeto está licenciado sob a MIT License. Veja o arquivo LICENSE para mais detalhes.
+## Protótipo no Figma
+
+Você pode acessar o protótipo do projeto no Figma clicando [aqui](https://www.figma.com/proto/lnbYijFhdLazcry0mKbaH5/Farm%C3%A1cia---CLT?node-id=33-549&t=9J8ibC8baX7cyOEp-1).  
+
+## Colaboradores
+
+Conheça os membros que contribuíram para este projeto:
+
+- [Arthur Silveira](https://github.com/IsArthurSilveira)
+- [Dayanni Rodrigues](https://github.com/Daydrigues)
+- [Matheus Willian](https://github.com/matheus96-cr)
+- [Victor Gomes](https://github.com/victor-gomes1)

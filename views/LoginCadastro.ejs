@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmácia Dash - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            100: '#E6F0FF',
+                            200: '#BFDAFF',
+                            300: '#99C3FF',
+                            400: '#66A3FF',
+                            500: '#3385FF',
+                            600: '#0066FF',
+                            700: '#0052CC',
+                            800: '#003D99',
+                            900: '#002966'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus {
+            border-color: #3385FF;
+            box-shadow: 0 0 0 3px rgba(51, 133, 255, 0.2);
+        }
+        
+        .input-group label {
+            position: absolute;
+            left: 1rem;
+            top: 0.75rem;
+            color: #718096;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: -0.5rem;
+            left: 0.75rem;
+            font-size: 0.75rem;
+            padding: 0 0.25rem;
+            background-color: white;
+            color: #3385FF;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3385FF 0%, #0052CC 100%);
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0066FF 0%, #003D99 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+        }
+        
+        .btn-outline {
+            border: 2px solid white;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .social-btn {
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Animações para a transição */
+        .auth-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blue-panel {
+            transition: transform 0.6s ease-in-out;
+        }
+        
+        .form-container {
+            transition: transform 0.6s ease-in-out;
+        }
+        
+        .login-form, .register-form {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        /* Estado de registro */
+        .auth-container.register-mode .blue-panel {
+            transform: translateX(100%);
+        }
+        
+        .auth-container.register-mode .login-form {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+        
+        .auth-container.register-mode .register-form {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* Estado de login */
+        .auth-container.login-mode .blue-panel {
+            transform: translateX(0);
+        }
+        
+        .auth-container.login-mode .register-form {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+        
+        .auth-container.login-mode .login-form {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .auth-container.register-mode .blue-panel {
+                transform: translateY(-100%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="container max-w-5xl mx-auto">
+        <div class="auth-container relative bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row h-[600px] login-mode" id="auth-container">
+            <!-- Painel Azul -->
+            <div class="blue-panel w-full md:w-1/2 bg-gradient-to-br from-primary-500 to-primary-800 text-white p-8 flex flex-col justify-between z-10" id="blue-panel">
+                <div>
+                    <div class="flex items-center mb-8">
+                        <svg class="w-10 h-10 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM10 4H14V6H10V4ZM20 19H4V8H20V19Z" fill="white"/>
+                            <path d="M13 10H11V13H8V15H11V18H13V15H16V13H13V10Z" fill="white"/>
+                        </svg>
+                        <h1 class="text-2xl font-bold">Farmácia Dash</h1>
+                    </div>
+                    
+                    <div id="login-panel">
+                        <h2 class="text-3xl font-bold mb-4">Bem-vindo de volta!</h2>
+                        <p class="mb-8 opacity-90">Acesse sua conta para gerenciar seu estoque, vendas e muito mais.</p>
+                        <button id="show-register-btn" class="btn-outline px-6 py-3 rounded-lg font-medium border-2 border-white hover:bg-white/10 transition">Criar uma conta</button>
+                    </div>
+                    
+                    <div id="register-panel" class="hidden">
+                        <h2 class="text-3xl font-bold mb-4">Junte-se a nós!</h2>
+                        <p class="mb-8 opacity-90">Registre-se para acessar todas as ferramentas de gestão farmacêutica.</p>
+                        <button id="show-login-btn" class="btn-outline px-6 py-3 rounded-lg font-medium border-2 border-white hover:bg-white/10 transition">Já tenho uma conta</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <p class="text-sm opacity-75">&copy; 2023 Farmácia Dash - Todos os direitos reservados</p>
+                </div>
+            </div>
+            
+            <!-- Container de Formulários -->
+            <div class="form-container w-full md:w-1/2 p-8 flex flex-col justify-center" id="form-container">
+                <!-- Formulário de Login -->
+                <div class="login-form w-full max-w-md mx-auto">
+                    <h2 class="text-3xl font-bold text-primary-800 mb-2">Login</h2>
+                    <p class="text-gray-600 mb-8">Por favor, entre com suas credenciais</p>
+                    
+                    <form class="space-y-6">
+                        <div class="input-group">
+                            <input type="email" id="email" placeholder=" " required>
+                            <label for="email">Email</label>
+                        </div>
+                        
+                        <div class="input-group">
+                            <input type="password" id="password" placeholder=" " required>
+                            <label for="password">Senha</label>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center">
+                                <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
+                                <label for="remember-me" class="ml-2 block text-sm text-gray-700">Lembrar-me</label>
+                            </div>
+                            
+                            <a href="#" class="text-sm text-primary-600 hover:text-primary-800">Esqueceu a senha?</a>
+                        </div>
+                        
+                        <a href="/dashboard" class="btn-primary w-full py-3 px-4 rounded-lg text-white font-medium shadow-lg text-center block">
+                            Entrar
+                        </a>
+                    </form>
+                    
+                    <div class="mt-8">
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-300"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-2 bg-white text-gray-500">Ou continue com</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 grid grid-cols-2 gap-3">
+                            <button type="button" class="social-btn flex justify-center items-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50">
+                                <svg class="h-5 w-5 text-primary-700" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/>
+                                </svg>
+                                <span class="ml-2 text-gray-700">Google</span>
+                            </button>
+                            <button type="button" class="social-btn flex justify-center items-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white hover:bg-gray-50">
+                                <svg class="h-5 w-5 text-primary-700" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M22,12c0-5.523-4.477-10-10-10S2,6.477,2,12c0,4.991,3.657,9.128,8.438,9.878v-6.987h-2.54V12h2.54V9.797c0-2.506,1.492-3.89,3.777-3.89c1.094,0,2.238,0.195,2.238,0.195v2.46h-1.26c-1.243,0-1.63,0.771-1.63,1.562V12h2.773l-0.443,2.89h-2.33v6.988C18.343,21.128,22,16.991,22,12z"/>
+                                </svg>
+                                <span class="ml-2 text-gray-700">Facebook</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Formulário de Cadastro -->
+                <div class="register-form w-full max-w-md mx-auto hidden">
+                    <h2 class="text-3xl font-bold text-primary-800 mb-2">Cadastro</h2>
+                    <p class="text-gray-600 mb-8">Crie sua conta na Farmácia Dash</p>
+                    
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="input-group">
+                                <input type="text" id="first-name" placeholder=" " required>
+                                <label for="first-name">Nome</label>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" id="last-name" placeholder=" " required>
+                                <label for="last-name">Sobrenome</label>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <input type="email" id="register-email" placeholder=" " required>
+                            <label for="register-email">Email</label>
+                        </div>
+                        
+                        <div class="input-group">
+                            <input type="password" id="register-password" placeholder=" " required>
+                            <label for="register-password">Senha</label>
+                        </div>
+                        
+                        <div class="input-group">
+                            <input type="password" id="confirm-password" placeholder=" " required>
+                            <label for="confirm-password">Confirmar senha</label>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <input id="terms" name="terms" type="checkbox" class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded" required>
+                            <label for="terms" class="ml-2 block text-sm text-gray-700">
+                                Eu concordo com os <a href="#" class="text-primary-600 hover:underline">Termos de Serviço</a> e <a href="#" class="text-primary-600 hover:underline">Política de Privacidade</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full py-3 px-4 rounded-lg text-white font-medium shadow-lg mt-4">
+                            Criar conta
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authContainer = document.getElementById('auth-container');
+            const bluePanel = document.getElementById('blue-panel');
+            const loginPanel = document.getElementById('login-panel');
+            const registerPanel = document.getElementById('register-panel');
+            const loginForm = document.querySelector('.login-form');
+            const registerForm = document.querySelector('.register-form');
+            const showRegisterBtn = document.getElementById('show-register-btn');
+            const showLoginBtn = document.getElementById('show-login-btn');
+            
+            // Função para alternar para o modo de registro
+            function switchToRegister() {
+                authContainer.classList.remove('login-mode');
+                authContainer.classList.add('register-mode');
+                loginPanel.classList.add('hidden');
+                registerPanel.classList.remove('hidden');
+                setTimeout(() => {
+                    loginForm.classList.add('hidden');
+                    registerForm.classList.remove('hidden');
+                }, 300);
+            }
+            
+            // Função para alternar para o modo de login
+            function switchToLogin() {
+                authContainer.classList.remove('register-mode');
+                authContainer.classList.add('login-mode');
+                registerPanel.classList.add('hidden');
+                loginPanel.classList.remove('hidden');
+                setTimeout(() => {
+                    registerForm.classList.add('hidden');
+                    loginForm.classList.remove('hidden');
+                }, 300);
+            }
+            
+            // Event listeners
+            showRegisterBtn.addEventListener('click', switchToRegister);
+            showLoginBtn.addEventListener('click', switchToLogin);
+            
+            // Simulação de envio de formulário com redirecionamento
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (form.classList.contains('login-form')) {
+                        // Redirecionar para a página principal após login
+                        window.location.href = '/dashboard';
+                    } else if (form.classList.contains('register-form')) {
+                        // Redirecionar para a página de boas-vindas após cadastro
+                        window.location.href = '/welcome';
+                    }
+                });
+            });
+            
+            // Ajustar para responsividade em redimensionamento
+            function handleResize() {
+                if (window.innerWidth < 768) {
+                    if (authContainer.classList.contains('register-mode')) {
+                        bluePanel.style.transform = 'translateY(-100%)';
+                    } else {
+                        bluePanel.style.transform = 'translateY(0)';
+                    }
+                } else {
+                    if (authContainer.classList.contains('register-mode')) {
+                        bluePanel.style.transform = 'translateX(100%)';
+                    } else {
+                        bluePanel.style.transform = 'translateX(0)';
+                    }
+                }
+            }
+            
+            window.addEventListener('resize', handleResize);
+            handleResize();
+        });
+    </script>
+</body>
+</html>

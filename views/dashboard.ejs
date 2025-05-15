@@ -1,127 +1,438 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard - Pharma One</title>
-  <link rel="stylesheet" href="/css/dashboard.css">
-  <link rel="stylesheet" href="/css/menu.css"></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Farmácia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        
+        .chart-container {
+            height: 250px;
+            position: relative;
+        }
+        
+        .chart-bar {
+            position: absolute;
+            bottom: 0;
+            width: 8%;
+            background: linear-gradient(to top, #3b82f6, #60a5fa);
+            border-radius: 6px 6px 0 0;
+            transition: height 1s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
 <body>
-
-    <%- include('partials/menu') %>
-
-  <section class="dashboard">
-    <div class="dashboard-header">
-      <div>
-        <h1>Dashboard</h1>
-        <p>visão geral dos dados do inventário.</p>
-      </div>
-      <button class="download-btn">Download Relatório ▼</button>
+  <div class="flex h-screen bg-gray-50">
+      <%- include('partials/menu.ejs') %>
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Header -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="flex items-center justify-between p-4">
+                    <div class="flex items-center">
+                        <button id="openSidebar" class="md:hidden mr-4 text-gray-600">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <h1 class="text-xl font-semibold text-gray-800">Dashboard</h1>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <input type="text" placeholder="Buscar..." class="py-2 pl-10 pr-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-64">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                        
+                        <div class="relative">
+                            <button class="relative p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                                <i class="fas fa-bell text-gray-600"></i>
+                                <span class="absolute top-0 right-0 h-4 w-4 bg-red-500 rounded-full text-xs flex items-center justify-center text-white">3</span>
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS11c2VyIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCIvPjwvc3ZnPg==" alt="User" class="h-8 w-8 rounded-full bg-gray-200 p-1">
+                            <span class="ml-2 text-gray-700 font-medium">Dr. Silva</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Main Content -->
+            <main class="flex-1 overflow-y-auto p-4 bg-gray-50">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-blue-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Vendas Hoje</p>
+                                <p class="text-2xl font-bold text-gray-800">R$ 3.450,00</p>
+                                <p class="text-xs text-green-500 mt-1 flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 12% desde ontem
+                                </p>
+                            </div>
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-shopping-bag text-blue-500 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-green-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Clientes Atendidos</p>
+                                <p class="text-2xl font-bold text-gray-800">42</p>
+                                <p class="text-xs text-green-500 mt-1 flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 8% desde ontem
+                                </p>
+                            </div>
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-users text-green-500 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-yellow-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Produtos em Estoque</p>
+                                <p class="text-2xl font-bold text-gray-800">1.254</p>
+                                <p class="text-xs text-yellow-500 mt-1 flex items-center">
+                                    <i class="fas fa-exclamation-circle mr-1"></i> 15 abaixo do mínimo
+                                </p>
+                            </div>
+                            <div class="bg-yellow-100 p-3 rounded-full">
+                                <i class="fas fa-box text-yellow-500 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-sm p-6 border-l-4 border-purple-500">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Receitas Processadas</p>
+                                <p class="text-2xl font-bold text-gray-800">28</p>
+                                <p class="text-xs text-red-500 mt-1 flex items-center">
+                                    <i class="fas fa-arrow-down mr-1"></i> 3% desde ontem
+                                </p>
+                            </div>
+                            <div class="bg-purple-100 p-3 rounded-full">
+                                <i class="fas fa-file-prescription text-purple-500 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts and Tables -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <!-- Sales Chart -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm lg:col-span-2">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-lg font-semibold text-gray-800">Vendas Semanais</h2>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 text-sm bg-blue-500 text-white rounded-md">Semana</button>
+                                <button class="px-3 py-1 text-sm bg-gray-100 text-gray-600 rounded-md">Mês</button>
+                                <button class="px-3 py-1 text-sm bg-gray-100 text-gray-600 rounded-md">Ano</button>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <div class="flex justify-between items-end h-full relative">
+                                <div class="chart-bar h-0" style="left: 5%; height: 65%;" data-height="65%"></div>
+                                <div class="chart-bar h-0" style="left: 15%; height: 40%;" data-height="40%"></div>
+                                <div class="chart-bar h-0" style="left: 25%; height: 80%;" data-height="80%"></div>
+                                <div class="chart-bar h-0" style="left: 35%; height: 60%;" data-height="60%"></div>
+                                <div class="chart-bar h-0" style="left: 45%; height: 90%;" data-height="90%"></div>
+                                <div class="chart-bar h-0" style="left: 55%; height: 70%;" data-height="70%"></div>
+                                <div class="chart-bar h-0" style="left: 65%; height: 50%;" data-height="50%"></div>
+                                <div class="chart-bar h-0" style="left: 75%; height: 75%;" data-height="75%"></div>
+                                <div class="chart-bar h-0" style="left: 85%; height: 85%;" data-height="85%"></div>
+                            </div>
+                            
+                            <div class="flex justify-between mt-2 text-xs text-gray-500">
+                                <div>Seg</div>
+                                <div>Ter</div>
+                                <div>Qua</div>
+                                <div>Qui</div>
+                                <div>Sex</div>
+                                <div>Sáb</div>
+                                <div>Dom</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Top Products -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-lg font-semibold text-gray-800">Produtos Mais Vendidos</h2>
+                            <button class="text-blue-500 hover:text-blue-700">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-pills text-blue-500"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-sm font-medium">Paracetamol 500mg</h3>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                                        <div class="bg-blue-500 h-1.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">85%</span>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-capsules text-green-500"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-sm font-medium">Dipirona 1g</h3>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                                        <div class="bg-green-500 h-1.5 rounded-full" style="width: 72%"></div>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">72%</span>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-tablets text-purple-500"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-sm font-medium">Amoxicilina 500mg</h3>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                                        <div class="bg-purple-500 h-1.5 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">65%</span>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-prescription-bottle text-yellow-500"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-sm font-medium">Loratadina 10mg</h3>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                                        <div class="bg-yellow-500 h-1.5 rounded-full" style="width: 58%"></div>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">58%</span>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-prescription-bottle-alt text-red-500"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-sm font-medium">Omeprazol 20mg</h3>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                                        <div class="bg-red-500 h-1.5 rounded-full" style="width: 45%"></div>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-medium text-gray-700">45%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Orders -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-lg font-semibold text-gray-800">Pedidos Recentes</h2>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-md text-sm hover:bg-blue-600 transition-colors flex items-center">
+                            <i class="fas fa-plus mr-2"></i> Novo Pedido
+                        </button>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produtos</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#8752</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700">MS</div>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-gray-900">Maria Silva</p>
+                                                <p class="text-xs text-gray-500">maria@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3 itens</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 87,50</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Concluído</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Hoje, 14:30</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <button class="text-blue-500 hover:text-blue-700 mr-3">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#8751</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700">JS</div>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-gray-900">João Santos</p>
+                                                <p class="text-xs text-gray-500">joao@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1 item</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 32,90</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">Em processamento</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Hoje, 13:45</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <button class="text-blue-500 hover:text-blue-700 mr-3">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#8750</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700">AP</div>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-gray-900">Ana Pereira</p>
+                                                <p class="text-xs text-gray-500">ana@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">5 itens</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 145,20</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Aguardando pagamento</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Hoje, 11:20</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <button class="text-blue-500 hover:text-blue-700 mr-3">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">#8749</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-700">CF</div>
+                                            <div class="ml-3">
+                                                <p class="text-sm font-medium text-gray-900">Carlos Ferreira</p>
+                                                <p class="text-xs text-gray-500">carlos@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 itens</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">R$ 56,75</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Concluído</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Ontem, 16:15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        <button class="text-blue-500 hover:text-blue-700 mr-3">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="flex justify-between items-center mt-6">
+                        <p class="text-sm text-gray-500">Mostrando 4 de 120 pedidos</p>
+                        <div class="flex space-x-1">
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-500 hover:bg-gray-50">Anterior</button>
+                            <button class="px-3 py-1 rounded border border-blue-500 bg-blue-500 text-white">1</button>
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-500 hover:bg-gray-50">2</button>
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-500 hover:bg-gray-50">3</button>
+                            <button class="px-3 py-1 rounded border border-gray-300 text-gray-500 hover:bg-gray-50">Próximo</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 
-
-    <div class="cards-container">
-      <div class="card card-green">
-        <div class="card-content">
-          <h3>BOM</h3>
-          <p>status de inventário</p>
-        </div>
-        <button class="card-button green">Ver relatório detalhado »</button>
-      </div>
-
-      <div class="card card-yellow">
-        <div class="card-content">
-          <h3>R$ 8.558,75</h3>
-          <p>Receita : Jan 2025</p>
-        </div>
-        <button class="card-button yellow">Ver relatório detalhado »</button>
-      </div>
-
-      <div class="card card-blue">
-        <div class="card-content">
-          <h3>298</h3>
-          <p>Medicamentos disponíveis</p>
-        </div>
-        <button class="card-button blue">Visitar inventário »</button>
-      </div>
-
-      <div class="card card-red">
-        <div class="card-content">
-          <h3>05</h3>
-          <p>Medicamentos em falta</p>
-        </div>
-        <button class="card-button red">Ver medicamento »</button>
-      </div>
-    </div>
-
-    <div class="info-grid">
-      <div class="info-box">
-        <div class="info-title">
-          <strong>Inventário</strong>
-          <span>Ir para configuração »</span>
-        </div>
-        <div class="info-data">
-          <div>
-            <h4>298</h4>
-            <p>Total de medicamentos</p>
-          </div>
-          <div>
-            <h4>24</h4>
-            <p>Grupos de medicamentos</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <div class="info-title">
-          <strong>Relatório rápido</strong>
-          <span>Abril 2025 ▼</span>
-        </div>
-        <div class="info-data">
-          <div>
-            <h4>70,856</h4>
-            <p>Qtd. de Medicamentos Vendidos</p>
-          </div>
-          <div>
-            <h4>5,288</h4>
-            <p>Faturas geradas</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <div class="info-title">
-          <strong>Minha Farmácia</strong>
-          <span>Gerenciamento de usuários »</span>
-        </div>
-        <div class="info-data">
-          <div>
-            <h4>04</h4>
-            <p>Total de fornecedores</p>
-          </div>
-          <div>
-            <h4>05</h4>
-            <p>Número total de usuários</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <div class="info-title">
-          <strong>Clientes</strong>
-          <span>Ir para a página do cliente »</span>
-        </div>
-        <div class="info-data">
-          <div>
-            <h4>845</h4>
-            <p>Total de Clientes</p>
-          </div>
-          <div>
-            <h4><strong>Rivotril</strong></h4>
-            <p>Item comprado com frequência</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <script>
+        // Initialize chart animation
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const bars = document.querySelectorAll('.chart-bar');
+                bars.forEach(bar => {
+                    const height = bar.getAttribute('data-height');
+                    bar.style.height = height;
+                });
+            }, 300);
+        });
+        
+        // Mobile sidebar toggle
+        const sidebar = document.getElementById('sidebar');
+        const openSidebarBtn = document.getElementById('openSidebar');
+        const closeSidebarBtn = document.getElementById('closeSidebar');
+        
+        openSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.add('open');
+        });
+        
+        closeSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+    </script>
 </body>
 </html>
