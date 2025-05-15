@@ -30,10 +30,10 @@ Farmácia Dash é uma aplicação web desenvolvida para facilitar a gestão farm
 
 Confira abaixo algumas imagens da interface da aplicação:
 
-- [Página de Login](/images/Login.png)  
-- [Página de Cadastro](/images/Cadastro.png)  
-- [Dashboard](/images/DashBoard.png)  
-- [Controle de Estoque](/images/Estoque.png)
+- [Página de Login](/public/images/Login.png)  
+- [Página de Cadastro](/public/images/Cadastro.png)  
+- [Dashboard](/public/images/DashBoard.png)  
+- [Controle de Estoque](/public/images/Estoque.png)
 
 ## Protótipo no Figma
 
