@@ -121,34 +121,34 @@
         
         /* Estado de registro */
         .auth-container.register-mode .blue-panel {
-            transform: translateX(100%);
+            transform: translateX(100%); /* Move o painel azul para fora da tela */
         }
         
         .auth-container.register-mode .login-form {
-            opacity: 0;
+            opacity: 0; /* Oculta o formulário de login */
             pointer-events: none;
             position: absolute;
         }
         
         .auth-container.register-mode .register-form {
-            opacity: 1;
+            opacity: 1; /* Torna o formulário de registro visível */
             pointer-events: auto;
         }
         
         /* Estado de login */
         .auth-container.login-mode .blue-panel {
-            transform: translateX(0);
+            transform: translateX(0); /* Retorna ao estado original */
         }
         
         .auth-container.login-mode .register-form {
-            opacity: 0;
-            pointer-events: none;
-            position: absolute;
+            opacity: 0; /* Oculta o formulário de registro */
+            pointer-events: none; /* Desabilita eventos */
+            position: absolute; /* Mantém o formulário fora da tela */
         }
         
         .auth-container.login-mode .login-form {
-            opacity: 1;
-            pointer-events: auto;
+            opacity: 1; /* Torna o formulário de login visível */
+            pointer-events: auto; /* Habilita eventos */
         }
         
         @media (max-width: 768px) {
@@ -164,7 +164,7 @@
             <!-- Painel Azul -->
             <div class="blue-panel w-full md:w-1/2 bg-gradient-to-br from-primary-500 to-primary-800 text-white p-8 flex flex-col justify-between z-10" id="blue-panel">
                 <div>
-                    <div class="flex items-center mb-8">
+                    <div class="flex items-center mb-8"> <!-- Logo -->
                         <svg class="w-10 h-10 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM10 4H14V6H10V4ZM20 19H4V8H20V19Z" fill="white"/>
                             <path d="M13 10H11V13H8V15H11V18H13V15H16V13H13V10Z" fill="white"/>
@@ -172,13 +172,13 @@
                         <h1 class="text-2xl font-bold">Farmácia Dash</h1>
                     </div>
                     
-                    <div id="login-panel">
+                    <div id="login-panel"> <!-- Painel de Login -->
                         <h2 class="text-3xl font-bold mb-4">Bem-vindo de volta!</h2>
                         <p class="mb-8 opacity-90">Acesse sua conta para gerenciar seu estoque, vendas e muito mais.</p>
                         <button id="show-register-btn" class="btn-outline px-6 py-3 rounded-lg font-medium border-2 border-white hover:bg-white/10 transition">Criar uma conta</button>
                     </div>
                     
-                    <div id="register-panel" class="hidden">
+                    <div id="register-panel" class="hidden"> <!-- Painel de Registro -->
                         <h2 class="text-3xl font-bold mb-4">Junte-se a nós!</h2>
                         <p class="mb-8 opacity-90">Registre-se para acessar todas as ferramentas de gestão farmacêutica.</p>
                         <button id="show-login-btn" class="btn-outline px-6 py-3 rounded-lg font-medium border-2 border-white hover:bg-white/10 transition">Já tenho uma conta</button>
@@ -288,9 +288,9 @@
                             </label>
                         </div>
                         
-                        <button type="submit" class="btn-primary w-full py-3 px-4 rounded-lg text-white font-medium shadow-lg mt-4">
-                            Criar conta
-                        </button>
+                        <a href="/dashboard" class="btn-primary w-full py-3 px-4 rounded-lg text-white font-medium shadow-lg text-center block">
+                            Criar Conta
+                        </a>
                     </form>
                 </div>
             </div>
@@ -298,7 +298,8 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // Script para alternar entre os modos de login e registro
+        document.addEventListener('DOMContentLoaded', function() { // Aguarda o carregamento do DOM
             const authContainer = document.getElementById('auth-container');
             const bluePanel = document.getElementById('blue-panel');
             const loginPanel = document.getElementById('login-panel');
@@ -310,10 +311,10 @@
             
             // Função para alternar para o modo de registro
             function switchToRegister() {
-                authContainer.classList.remove('login-mode');
-                authContainer.classList.add('register-mode');
-                loginPanel.classList.add('hidden');
-                registerPanel.classList.remove('hidden');
+                authContainer.classList.remove('login-mode'); // Remove a classe de login
+                authContainer.classList.add('register-mode'); // Adiciona a classe de registro
+                loginPanel.classList.add('hidden'); // Oculta o painel de login
+                registerPanel.classList.remove('hidden'); // Mostra o painel de registro
                 setTimeout(() => {
                     loginForm.classList.add('hidden');
                     registerForm.classList.remove('hidden');
@@ -346,7 +347,7 @@
                         window.location.href = '/dashboard';
                     } else if (form.classList.contains('register-form')) {
                         // Redirecionar para a página de boas-vindas após cadastro
-                        window.location.href = '/welcome';
+                        window.location.href = '/dashboard';
                     }
                 });
             });
