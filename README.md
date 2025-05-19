@@ -45,5 +45,6 @@ Conheça os membros que contribuíram para este projeto:
 
 - [Arthur Silveira](https://github.com/IsArthurSilveira)
 - [Dayanni Rodrigues](https://github.com/Daydrigues)
+- [Maria Augusta](https://github.com/22augusta)
 - [Matheus Willian](https://github.com/matheus96-cr)
 - [Victor Gomes](https://github.com/victor-gomes1)
